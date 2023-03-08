@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaSignInAlt } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
-import { login } from "../features/auth/authSlice";
-
+import { login, reset } from "../features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
+import Spinner from "../components/Spinner";
 function Login() {
   const [form, setForm] = useState({
     email: "",
@@ -11,12 +12,23 @@ function Login() {
   });
 
   const { email, password } = form;
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { user, isLoading, isSuccess, message } = useSelector(
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.auth
   );
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    }
+    // Redirect when successfull
+    if (isSuccess || user) {
+      navigate("/");
+    }
+    // reseting
+    dispatch(reset());
+  }, [isError, isSuccess, user, message, navigate, dispatch]);
 
   const handleChange = (e) => {
     setForm((prevState) => ({
@@ -33,6 +45,10 @@ function Login() {
     };
     dispatch(login(userData));
   };
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <>
@@ -66,7 +82,9 @@ function Login() {
             />
           </div>
           <div className="form-group">
-            <button className="btn btn-block">Register</button>
+            <button className="btn btn-block" onClick={login}>
+              Login
+            </button>
           </div>
         </form>
       </section>
