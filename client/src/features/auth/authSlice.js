@@ -50,6 +50,10 @@ export const register = createAsyncThunk(
 export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
   console.log(user);
 });
+
+export const logout = createAsyncThunk("auth/logout", async () => {
+  await authService.logout();
+});
 // createSilce - A function that accepts an initial state, an object of reducer functions, and a "slice name", and automatically generates action creators and action types that correspond to the reducers and state.
 // A slice is the portion of Redux code that relates to a specific set of data and actions within the store 's state. A slice reducer is the reducer responsible for handling actions and updating the data for a given slice.
 export const authSlice = createSlice({
@@ -85,6 +89,9 @@ export const authSlice = createSlice({
         state.isError = true;
         // payload from thunkAPI.rejectWithValue(message)
         state.message = action.payload;
+      })
+      .addCase(logout.fulfilled, (state) => {
+        state.user = null;
       });
   },
 });
