@@ -1,14 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const {
-  registerUser,
-  loginUser,
+  register,
+  login,
   getCurrentUser,
 } = require("../controllers/userController");
 const { protect } = require("../middleware/authMiddleware");
 
-router.post("/", registerUser);
-router.post("/login", loginUser);
+router.post("/", register);
+router.post("/login", login);
 // protected route to get a user data
 router.get("/currentUser", protect, getCurrentUser);
 

@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 
-const registerUser = asyncHandler(async (req, res) => {
+const register = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
   if (!name || !email || !password) {
     res.status(400);
@@ -17,7 +17,6 @@ const registerUser = asyncHandler(async (req, res) => {
   //salt for bcrypt
   const salt = await bcrypt.genSalt(10);
   const hashedPass = await bcrypt.hash(password, salt);
-
   const createUser = await User.create({
     name,
     email,
@@ -37,7 +36,7 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
-const loginUser = asyncHandler(async (req, res) => {
+const login = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
   // checking password with compare with bcrypt
@@ -55,6 +54,7 @@ const loginUser = asyncHandler(async (req, res) => {
 });
 
 const getCurrentUser = asyncHandler(async (req, res) => {
+  // we have an accesss to the user in the request, cause we set it in the authMiddelware
   const currentUser = {
     id: req.user._id,
     email: req.user.email,
@@ -71,7 +71,7 @@ const generateToken = (id) => {
 };
 
 module.exports = {
-  registerUser,
-  loginUser,
+  register,
+  login,
   getCurrentUser,
 };
