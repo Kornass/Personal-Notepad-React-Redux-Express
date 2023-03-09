@@ -12,6 +12,7 @@ app.use(express.urlencoded({ extended: false }));
 //connect to database
 connectDB();
 
+app.use("/api/posts", require("./routes/postRoute"));
 app.use("/api/users", require("./routes/userRoutes"));
 app.use(errorHandler);
 
