@@ -5,6 +5,8 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Header from "./components/Header";
+import NewPost from "./pages/NewPost";
+import PrivateRoute from "./components/PrivateRoute";
 function App() {
   return (
     <>
@@ -15,6 +17,10 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            {/* Privete routes wrapper  */}
+            <Route path="/new-post" element={<PrivateRoute />}>
+              <Route path="/new-post" element={<NewPost />} />
+            </Route>
           </Routes>
         </div>
       </Router>

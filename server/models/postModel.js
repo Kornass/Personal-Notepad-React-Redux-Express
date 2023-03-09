@@ -9,7 +9,7 @@ const postSchema = mongoose.Schema(
     type: {
       type: String,
       required: [true, "Please add a post type "],
-      enum: ["News", "Science", "Sport", "Entertainment"],
+      enum: ["News", "Science", "Sport", "Entertainment", "Reminder", "Food"],
     },
     post: { type: String, required: [true, "Post cannot be empty!"] },
     status: {

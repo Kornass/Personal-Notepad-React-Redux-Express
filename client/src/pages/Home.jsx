@@ -8,10 +8,10 @@ function Home() {
         <p>Choose an option</p>
       </section>
 
-      <Link to="/new-ticket" className="btn btn-reverse btn-block">
+      <Link to="/new-post" className="btn btn-reverse btn-block">
         <FaQuestion /> Create new ticket
       </Link>
-      <Link to="/new-ticket" className="btn btn-block">
+      <Link to="/my-posts" className="btn btn-block">
         <FaTicketAlt /> View my tickets
       </Link>
     </>
