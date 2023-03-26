@@ -17,7 +17,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            {/* Privete routes wrapper  */}
+            {/* Private routes wrapper  */}
             <Route path="/new-post" element={<PrivateRoute />}>
               <Route path="/new-post" element={<NewPost />} />
             </Route>
