@@ -1,31 +1,50 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
-
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { createPost, reset } from "../features/posts/postSlice";
+import Spinner from "../components/Spinner";
+import BackButton from "../components/BackButton";
 function NewPost() {
   const { user } = useSelector((state) => state.auth);
+  const { isLoading, isError, isSuccess, message } = useSelector(
+    (state) => state.post
+  );
   const [name] = useState(user.name);
   const [email] = useState(user.email);
   const [post, setPost] = useState("");
   const [type, setType] = useState("News");
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    }
+    if (isSuccess) {
+      dispatch(reset());
+      navigate("/posts");
+    }
+    dispatch(reset());
+  }, [dispatch, isError, isSuccess, navigate, message]);
+
   const onSubmit = (e) => {
     e.preventDefault();
+    dispatch(createPost({ post, type }));
   };
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <>
+      <BackButton url="/" />
       <section className="heading">
         <h1>Create New Post</h1>
       </section>
       <section className="form">
-        <div className="form-group">
-          <label htmlFor="name">User Name</label>
-          <input type="text" className="form-control" value={name} disabled />
-        </div>
-        <div className="form-group">
-          <label htmlFor="name">User Email</label>
-          <input type="text" className="form-control" value={email} disabled />
-        </div>
         <form onSubmit={onSubmit}>
           <div className="form-group">
             <label htmlFor="type"></label>

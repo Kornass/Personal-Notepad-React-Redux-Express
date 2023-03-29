@@ -76,7 +76,7 @@ h3 {
 }
 
 .heading {
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 50px;
   padding: 0 20px;
@@ -375,6 +375,26 @@ footer {
   border-color: #000 transparent #555 transparent;
   border-radius: 50%;
   animation: spin 1.2s linear infinite;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid black;
+  background: rgba(255, 255, 255, 0.75);
+  overflow: auto;
+  border-radius: 10px;
+  outline: none;
+  padding: 20px;
+}
+.modalButtons {
+  padding-top: 20px;
+  width: 50%;
+  margin: auto;
+  display: flex;
+  justify-content: space-around;
 }
 
 @keyframes spin {
