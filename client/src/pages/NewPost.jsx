@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { createPost, reset } from "../features/posts/postSlice";
 import Spinner from "../components/Spinner";
 import BackButton from "../components/BackButton";
+
 function NewPost() {
   const { user } = useSelector((state) => state.auth);
   const { isLoading, isError, isSuccess, message } = useSelector(

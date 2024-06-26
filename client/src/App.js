@@ -9,6 +9,7 @@ import NewPost from "./pages/NewPost";
 import Posts from "./pages/Posts";
 import Post from "./pages/Post";
 import PrivateRoute from "./components/PrivateRoute";
+
 function App() {
   return (
     <>
@@ -19,7 +20,6 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            {/* Private routes wrapper  */}
             <Route path="/new-post" element={<PrivateRoute />}>
               <Route path="/new-post" element={<NewPost />} />
             </Route>

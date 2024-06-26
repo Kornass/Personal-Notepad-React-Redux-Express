@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { login, reset } from "../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../components/Spinner";
+
 function Login() {
   const [form, setForm] = useState({
     email: "",
@@ -18,6 +19,7 @@ function Login() {
   const { user, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.auth
   );
+
   useEffect(() => {
     if (isError) {
       toast.error(message);
