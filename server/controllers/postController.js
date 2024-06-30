@@ -66,7 +66,6 @@ const createPost = asyncHandler(async (req, res) => {
 });
 
 const deletePost = asyncHandler(async (req, res) => {
-  // Get user using id in the JWT
   const user = await User.findById(req.user.id);
 
   if (!user) {
@@ -92,7 +91,6 @@ const deletePost = asyncHandler(async (req, res) => {
 });
 
 const updatePost = asyncHandler(async (req, res) => {
-  // Get user using id in the JWT
   const user = await User.findById(req.user.id);
 
   if (!user) {

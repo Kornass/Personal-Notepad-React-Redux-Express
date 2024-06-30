@@ -19,7 +19,6 @@ const postSchema = mongoose.Schema(
       default: "new",
     },
   },
-  // automatically create a timestamps
   { timestamps: true }
 );
 module.exports = mongoose.model("post", postSchema);

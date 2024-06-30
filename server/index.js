@@ -15,6 +15,7 @@ connectDB();
 app.use("/api/posts", require("./routes/postRoute"));
 app.use("/api/users", require("./routes/userRoutes"));
 
+//! HEROKU SETUP CODE - OLD HOSTING CONFIG
 // Serving production build
 // if (process.env.NODE_ENV === "production") {
 //   app.use(express.static(path.join(__dirname, "../client/build")));

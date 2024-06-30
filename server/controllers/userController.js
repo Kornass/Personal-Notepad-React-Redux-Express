@@ -14,7 +14,6 @@ const register = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("User already exist");
   }
-  //salt for bcrypt
   const salt = await bcrypt.genSalt(10);
   const hashedPass = await bcrypt.hash(password, salt);
   const createUser = await User.create({
@@ -39,7 +38,6 @@ const register = asyncHandler(async (req, res) => {
 const login = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
-  // checking password with compare with bcrypt
   if (user && (await bcrypt.compare(password, user.password))) {
     res.status(200).json({
       _id: user._id,
@@ -54,7 +52,6 @@ const login = asyncHandler(async (req, res) => {
 });
 
 const getCurrentUser = asyncHandler(async (req, res) => {
-  // we have an accesss to the user in the request, cause we set it in the authMiddelware
   const currentUser = {
     id: req.user._id,
     email: req.user.email,
@@ -63,7 +60,6 @@ const getCurrentUser = asyncHandler(async (req, res) => {
   res.status(200).json(currentUser);
 });
 
-// Generate token
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: "10d",
