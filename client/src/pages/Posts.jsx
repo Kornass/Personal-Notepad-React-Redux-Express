@@ -50,10 +50,10 @@ function Posts() {
   }, [dispatch, isSuccess]);
 
   useEffect(() => {
-    dispatch(getUserPosts());
-    posts.map((post) => dispatch(updatePostStatus(post._id)));
+    if (posts.length === 0) dispatch(getUserPosts());
+    else posts.forEach((post) => dispatch(updatePostStatus(post._id)));
     //eslint-disable-next-line
-  }, [dispatch]);
+  }, [dispatch, posts]);
 
   if (isLoading) {
     return <Spinner />;
