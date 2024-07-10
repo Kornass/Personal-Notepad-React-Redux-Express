@@ -396,7 +396,34 @@ footer {
   display: flex;
   justify-content: space-around;
 }
-
+#sorting {
+  font-family: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#sorting select {
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.3rem;
+}
+#sorting div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#sort-cancel {
+  background: none;
+  border: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+}
+#sort-cancel:hover {
+  cursor: pointer;
+}
 @keyframes spin {
   0% {
     transform: rotate(0deg);

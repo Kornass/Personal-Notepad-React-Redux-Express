@@ -212,6 +212,8 @@ export const postSlice = createSlice({
       );
     });
     builder.addCase(updatePostStatus.fulfilled, (state, action) => {
+      console.log(action);
+      console.log(state);
       state.isLoading = false;
       state.posts.map((post) =>
         post._id === action.payload._id ? (post.status = "open") : post

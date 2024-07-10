@@ -5,7 +5,6 @@ export const useAuthStatus = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  // getting a user from our state
   const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {

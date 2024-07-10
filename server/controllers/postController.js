@@ -4,7 +4,6 @@ const User = require("../models/userModel");
 const Post = require("../models/postModel");
 
 const getPosts = asyncHandler(async (req, res) => {
-  // Get user using id in the JWT
   const user = await User.findById(req.user.id);
 
   if (!user) {
@@ -18,7 +17,6 @@ const getPosts = asyncHandler(async (req, res) => {
 });
 
 const getSinglePost = asyncHandler(async (req, res) => {
-  // Get user using id in the JWT
   const user = await User.findById(req.user.id);
 
   if (!user) {
@@ -32,7 +30,7 @@ const getSinglePost = asyncHandler(async (req, res) => {
     res.status(404);
     throw new Error("Post not found");
   }
-  // Getting sure if it is a user's post
+
   if (post.user.toString() !== req.user.id) {
     res.status(401);
     throw new Error("Not authorized");
@@ -79,7 +77,7 @@ const deletePost = asyncHandler(async (req, res) => {
     res.status(404);
     throw new Error("Post not found");
   }
-  // Getting sure if it is a user's post
+
   if (post.user.toString() !== req.user.id) {
     res.status(401);
     throw new Error("Not authorized");
@@ -104,7 +102,7 @@ const updatePost = asyncHandler(async (req, res) => {
     res.status(404);
     throw new Error("Post not found");
   }
-  // Getting sure if it is a user's post
+
   if (post.user.toString() !== req.user.id) {
     res.status(401);
     throw new Error("Not authorized");

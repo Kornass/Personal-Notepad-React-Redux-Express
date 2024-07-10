@@ -15,18 +15,6 @@ connectDB();
 app.use("/api/posts", require("./routes/postRoute"));
 app.use("/api/users", require("./routes/userRoutes"));
 
-//! HEROKU SETUP CODE - OLD HOSTING CONFIG
-// Serving production build
-// if (process.env.NODE_ENV === "production") {
-//   app.use(express.static(path.join(__dirname, "../client/build")));
-//   app.get("*", (req, res) =>
-//     res.sendFile(__dirname, "../", "client", "build", "index.html")
-//   );
-// } else {
-//   app.get("/", (req, res) => {
-//     res.status(200).json({ message: "Welcome" });
-//   });
-// }
 app.use(errorHandler);
 
 app.listen(PORT, () => console.log(`Server running on ${PORT}`));
