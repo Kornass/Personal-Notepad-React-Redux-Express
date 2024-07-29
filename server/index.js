@@ -10,7 +10,7 @@ const cors = require("cors");
 
 app.use(
   cors({
-    origin: "https://personal-notepad-react-redux-server.vercel.app",
+    origin: "https://personal-notepad-react-redux.vercel.app",
   })
 );
 
