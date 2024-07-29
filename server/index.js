@@ -8,7 +8,11 @@ const PORT = process.env.PORT || 6000;
 const app = express();
 const cors = require("cors");
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://personal-notepad-react-redux.vercel.app",
+  })
+);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
