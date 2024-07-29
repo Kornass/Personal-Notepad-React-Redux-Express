@@ -67,7 +67,7 @@ function Posts() {
     <>
       <BackButton url="/" />
       {posts.length === 0 ? (
-        <h1>You don't have any post created!</h1>
+        <h1>You don't have any posts created!</h1>
       ) : (
         <>
           <h1>Posts</h1>

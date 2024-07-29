@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API_URL = "/api/posts/";
+const API_URL =
+  "https://personal-notepad-react-redux-server.vercel.app/api/posts/";
 
 const createPost = async (postData, token) => {
   const config = {
