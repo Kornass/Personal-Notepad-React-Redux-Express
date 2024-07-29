@@ -13,7 +13,9 @@ app.use(
     origin: "https://personal-notepad-react-redux.vercel.app",
   })
 );
-
+app.options("/*", (_, res) => {
+  res.sendStatus(200);
+});
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
