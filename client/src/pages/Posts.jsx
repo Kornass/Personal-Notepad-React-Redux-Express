@@ -25,7 +25,6 @@ function Posts() {
     "Type: Entertainment",
     "Type: Reminder",
     "Type: Food",
-    "Type: Date",
   ];
 
   const handleSortChange = (e) => {
@@ -51,7 +50,12 @@ function Posts() {
 
   useEffect(() => {
     if (posts.length === 0) dispatch(getUserPosts());
-    else posts.forEach((post) => dispatch(updatePostStatus(post._id)));
+    //eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    if (posts.length !== 0)
+      posts.forEach((post) => dispatch(updatePostStatus(post._id)));
     //eslint-disable-next-line
   }, [dispatch, posts]);
 
@@ -62,45 +66,57 @@ function Posts() {
   return (
     <>
       <BackButton url="/" />
-      <h1>Posts</h1>
-      <div className="tickets">
-        <div className="ticket-headings">
-          <div>Date</div>
-          <div>Type</div>
-          <div>Status</div>
-          <div id="sorting">
-            Filtered by :
-            <div>
-              <select
-                name="sorting"
-                id="sort-select"
-                onChange={handleSortChange}
-              >
-                <option value={"" || sorting}>
-                  {!sorting ? "Choose filter" : sorting}
-                </option>
-                {sortingOptions
-                  .filter((option) => option !== sorting)
-                  .map((option) => {
-                    return (
-                      <option key={option} value={option}>
-                        {option}
-                      </option>
-                    );
-                  })}
-              </select>
-              {sorting && (
-                <button id="sort-cancel" onClick={() => setSorting("")}>
-                  <FaRegWindowClose />
-                </button>
-              )}
+      {posts.length === 0 ? (
+        <h1>You don't have any post created!</h1>
+      ) : (
+        <>
+          <h1>Posts</h1>
+          <div className="tickets">
+            <div className="ticket-headings">
+              <div>Date</div>
+              <div>Type</div>
+              <div>Status</div>
+              <div id="sorting">
+                Filtered by :
+                <div>
+                  <select
+                    name="sorting"
+                    id="sort-select"
+                    onChange={handleSortChange}
+                  >
+                    <option value={"" || sorting}>
+                      {!sorting ? "Choose filter" : sorting}
+                    </option>
+                    {sortingOptions
+                      .filter((option) => option !== sorting)
+                      .map((option) => {
+                        return (
+                          <option key={option} value={option}>
+                            {option}
+                          </option>
+                        );
+                      })}
+                  </select>
+                  {sorting && (
+                    <button
+                      id="sort-cancel"
+                      onClick={() => setSorting("")}
+                      style={{ fontSize: "1.2rem" }}
+                    >
+                      <FaRegWindowClose />
+                    </button>
+                  )}
+                </div>
+              </div>
             </div>
+            {posts.length
+              ? renderPosts().map((post) => (
+                  <PostItem key={post._id} post={post} />
+                ))
+              : null}
           </div>
-        </div>
-        {renderPosts().map((post) => (
-          <PostItem key={post._id} post={post} />
-        ))}
-      </div>
+        </>
+      )}
     </>
   );
 }
