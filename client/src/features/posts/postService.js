@@ -55,7 +55,7 @@ const updatePostStatus = async (postId, token) => {
   };
   const post = await axios.get(API_URL + postId, config);
   const today = new Date();
-  const created = new Date(post.data.createdAt);
+  const created = new Date(post.data.updatedAt);
   const dayDiff = (today - created) / 1000 / 60 / 60 / 24;
   if (dayDiff > 1 && post.data.status === "new") {
     const response = await axios.put(
@@ -75,7 +75,7 @@ const updatePostContent = async (data, token) => {
   };
   const response = await axios.put(
     API_URL + data.postId,
-    { status: "open", post: data.post },
+    { status: "new", post: data.post },
     config
   );
   return response.data;
