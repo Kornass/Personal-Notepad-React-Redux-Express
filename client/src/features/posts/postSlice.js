@@ -14,18 +14,15 @@ export const createPost = createAsyncThunk(
   "posts/create",
   async (postData, thunkAPI) => {
     try {
-      // thunk API allows us to access whatever is in the state
       const token = thunkAPI.getState().auth.user.token;
       return await postService.createPost(postData, token);
     } catch (error) {
-      // getting message from our backend
       const message =
         (error.response &&
           error.response.data &&
           error.response.data.message) ||
         error.message ||
         error.toString();
-      // We use thunkAPI rejectWithValue method to handle an error
       return thunkAPI.rejectWithValue(message);
     }
   }
@@ -35,18 +32,15 @@ export const getUserPosts = createAsyncThunk(
   "posts/getAll",
   async (_, thunkAPI) => {
     try {
-      // thunk API allows us to access whatever is in the state
       const token = thunkAPI.getState().auth.user.token;
       return await postService.getPosts(token);
     } catch (error) {
-      // getting message from our backend
       const message =
         (error.response &&
           error.response.data &&
           error.response.data.message) ||
         error.message ||
         error.toString();
-      // We use thunkAPI rejectWithValue method to handle an error
       return thunkAPI.rejectWithValue(message);
     }
   }
@@ -56,18 +50,15 @@ export const getSinglePost = createAsyncThunk(
   "posts/get",
   async (ticketId, thunkAPI) => {
     try {
-      // thunk API allows us to access whatever is in the state
       const token = thunkAPI.getState().auth.user.token;
       return await postService.getPost(ticketId, token);
     } catch (error) {
-      // getting message from our backend
       const message =
         (error.response &&
           error.response.data &&
           error.response.data.message) ||
         error.message ||
         error.toString();
-      // We use thunkAPI rejectWithValue method to handle an error
       return thunkAPI.rejectWithValue(message);
     }
   }
@@ -77,18 +68,15 @@ export const closePost = createAsyncThunk(
   "posts/close",
   async (ticketId, thunkAPI) => {
     try {
-      // thunk API allows us to access whatever is in the state
       const token = thunkAPI.getState().auth.user.token;
       return await postService.closePost(ticketId, token);
     } catch (error) {
-      // getting message from our backend
       const message =
         (error.response &&
           error.response.data &&
           error.response.data.message) ||
         error.message ||
         error.toString();
-      // We use thunkAPI rejectWithValue method to handle an error
       return thunkAPI.rejectWithValue(message);
     }
   }
@@ -98,18 +86,15 @@ export const updatePostStatus = createAsyncThunk(
   "posts/updateStatus",
   async (ticketId, thunkAPI) => {
     try {
-      // thunk API allows us to access whatever is in the state
       const token = thunkAPI.getState().auth.user.token;
       return await postService.updatePostStatus(ticketId, token);
     } catch (error) {
-      // getting message from our backend
       const message =
         (error.response &&
           error.response.data &&
           error.response.data.message) ||
         error.message ||
         error.toString();
-      // We use thunkAPI rejectWithValue method to handle an error
       return thunkAPI.rejectWithValue(message);
     }
   }
@@ -137,18 +122,15 @@ export const removePost = createAsyncThunk(
   "posts/remove",
   async (ticketId, thunkAPI) => {
     try {
-      // thunk API allows us to access whatever is in the state
       const token = thunkAPI.getState().auth.user.token;
       return await postService.deletePost(ticketId, token);
     } catch (error) {
-      // getting message from our backend
       const message =
         (error.response &&
           error.response.data &&
           error.response.data.message) ||
         error.message ||
         error.toString();
-      // We use thunkAPI rejectWithValue method to handle an error
       return thunkAPI.rejectWithValue(message);
     }
   }
@@ -158,18 +140,15 @@ export const restorePost = createAsyncThunk(
   "posts/restore",
   async (ticketId, thunkAPI) => {
     try {
-      // thunk API allows us to access whatever is in the state
       const token = thunkAPI.getState().auth.user.token;
       return await postService.restorePost(ticketId, token);
     } catch (error) {
-      // getting message from our backend
       const message =
         (error.response &&
           error.response.data &&
           error.response.data.message) ||
         error.message ||
         error.toString();
-      // We use thunkAPI rejectWithValue method to handle an error
       return thunkAPI.rejectWithValue(message);
     }
   }
@@ -192,7 +171,6 @@ export const postSlice = createSlice({
     builder.addCase(createPost.rejected, (state, action) => {
       state.isLoading = false;
       state.isError = true;
-      // payload from thunk API rejectedWithValue method
       state.message = action.payload;
     });
     builder.addCase(getUserPosts.pending, (state) => {
@@ -206,7 +184,6 @@ export const postSlice = createSlice({
     builder.addCase(getUserPosts.rejected, (state, action) => {
       state.isLoading = false;
       state.isError = true;
-      // payload from thunk API rejectedWithValue method
       state.message = action.payload;
     });
     builder.addCase(getSinglePost.pending, (state) => {
@@ -220,7 +197,6 @@ export const postSlice = createSlice({
     builder.addCase(getSinglePost.rejected, (state, action) => {
       state.isLoading = false;
       state.isError = true;
-      // payload from thunk API rejectedWithValue method
       state.message = action.payload;
     });
     builder.addCase(closePost.fulfilled, (state, action) => {
@@ -254,7 +230,6 @@ export const postSlice = createSlice({
     builder.addCase(removePost.rejected, (state, action) => {
       state.isLoading = false;
       state.isError = true;
-      // payload from thunk API rejectedWithValue method
       state.message = action.payload;
     });
     builder.addCase(restorePost.pending, (state) => {
@@ -268,7 +243,6 @@ export const postSlice = createSlice({
     builder.addCase(restorePost.rejected, (state, action) => {
       state.isLoading = false;
       state.isError = true;
-      // payload from thunk API rejectedWithValue method
       state.message = action.payload;
     });
   },

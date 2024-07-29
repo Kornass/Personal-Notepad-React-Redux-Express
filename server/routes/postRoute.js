@@ -9,7 +9,6 @@ const {
   updatePost,
 } = require("../controllers/postController");
 
-// With .route() we can specify an endpoint and chain requests to it
 router.route("/").get(protect, getPosts).post(protect, createPost);
 router
   .route("/:id")

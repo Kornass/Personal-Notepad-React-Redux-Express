@@ -3,10 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout, reset } from "../features/auth/authSlice";
 function Header() {
+  const { user } = useSelector((state) => state.auth);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // bringing up the user from auth state (store.js) using redux useSelector
-  const { user } = useSelector((state) => state.auth);
 
   const onLogout = () => {
     dispatch(logout());

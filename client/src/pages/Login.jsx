@@ -24,11 +24,9 @@ function Login() {
     if (isError) {
       toast.error(message);
     }
-    // Redirect when successfull
     if (isSuccess || user) {
       navigate("/");
     }
-    // reseting
     dispatch(reset());
   }, [isError, isSuccess, user, message, navigate, dispatch]);
 

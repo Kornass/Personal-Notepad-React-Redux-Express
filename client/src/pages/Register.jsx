@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
 import { FaUser } from "react-icons/fa";
 import { toast } from "react-toastify";
-// useSelector allows us to select from our global state
-// useDispatch is going to dispatch our actions
+
 import { useSelector, useDispatch } from "react-redux";
-// bringing in register function from auth slice
 import { register, reset } from "../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../components/Spinner";
@@ -19,9 +17,7 @@ function Register() {
 
   const { name, email, password, password2 } = form;
 
-  // The useDispatch hook is used to dispatch an action while useSelector hook is used to get the state from the redux store.
   const dispatch = useDispatch();
-  // we bringing in pieces of our state. Use selector takes a function as an argument that has a state object as build-in arg
   const { user, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.auth
   );
@@ -30,11 +26,9 @@ function Register() {
     if (isError) {
       toast.error(message);
     }
-    // Redirect when successfull
     if (isSuccess || user) {
       navigate("/");
     }
-    // reseting
     dispatch(reset());
   }, [isError, isSuccess, user, message, navigate, dispatch]);
 
@@ -55,7 +49,6 @@ function Register() {
         email,
         password,
       };
-      // dispatch call opur register function that we brought in from our authSlice. We pass userData object as an argument to our async register thunk
       dispatch(register(userData));
     }
   };
