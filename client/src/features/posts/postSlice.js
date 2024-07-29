@@ -95,12 +95,12 @@ export const closePost = createAsyncThunk(
 );
 
 export const updatePostStatus = createAsyncThunk(
-  "posts/update",
+  "posts/updateStatus",
   async (ticketId, thunkAPI) => {
     try {
       // thunk API allows us to access whatever is in the state
       const token = thunkAPI.getState().auth.user.token;
-      return await postService.updatePost(ticketId, token);
+      return await postService.updatePostStatus(ticketId, token);
     } catch (error) {
       // getting message from our backend
       const message =
@@ -110,6 +110,24 @@ export const updatePostStatus = createAsyncThunk(
         error.message ||
         error.toString();
       // We use thunkAPI rejectWithValue method to handle an error
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const updatePostContent = createAsyncThunk(
+  "posts/updateContent",
+  async (data, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+      return await postService.updatePostContent(data, token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
       return thunkAPI.rejectWithValue(message);
     }
   }
@@ -215,6 +233,14 @@ export const postSlice = createSlice({
       state.isLoading = false;
       state.posts.map((post) =>
         post._id === action.payload?._id ? (post.status = "open") : post
+      );
+    });
+    builder.addCase(updatePostContent.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.posts.map((post) =>
+        post._id === action.payload?._id
+          ? (post.post = action.payload.post)
+          : post
       );
     });
     builder.addCase(removePost.pending, (state) => {

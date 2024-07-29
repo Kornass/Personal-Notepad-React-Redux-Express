@@ -46,7 +46,7 @@ const closePost = async (postId, token) => {
   return response.data;
 };
 
-const updatePost = async (postId, token) => {
+const updatePostStatus = async (postId, token) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -64,6 +64,20 @@ const updatePost = async (postId, token) => {
     );
     return response.data;
   }
+};
+
+const updatePostContent = async (data, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  const response = await axios.put(
+    API_URL + data.postId,
+    { status: "open", post: data.post },
+    config
+  );
+  return response.data;
 };
 
 const deletePost = async (postId, token) => {
@@ -98,7 +112,8 @@ const postService = {
   getPosts,
   getPost,
   closePost,
-  updatePost,
+  updatePostStatus,
+  updatePostContent,
   deletePost,
   restorePost,
 };

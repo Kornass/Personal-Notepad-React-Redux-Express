@@ -26,6 +26,7 @@ function NewPost() {
     if (isSuccess) {
       dispatch(reset());
       navigate("/posts");
+      toast.success("Post Created!");
     }
     dispatch(reset());
   }, [dispatch, isError, isSuccess, navigate, message]);

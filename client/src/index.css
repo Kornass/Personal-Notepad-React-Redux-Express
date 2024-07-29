@@ -176,6 +176,11 @@ h3 {
   border: none;
 }
 
+.btn-update {
+  background: steelblue;
+  border: none;
+}
+
 .btn-back {
   width: 150px;
   margin-bottom: 20px;
@@ -282,8 +287,14 @@ h3 {
   border: 1px #ccc solid;
   padding: 10px 15px;
   border-radius: 5px;
+  width: 100%;
 }
-
+.edit {
+  box-shadow: 0px 1px 5px 2px rgba(29, 171, 9, 1);
+}
+.activeEdit {
+  background-color: green;
+}
 .note {
   border: 1px solid #e6e6e6;
   border-radius: 5px;

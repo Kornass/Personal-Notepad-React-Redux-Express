@@ -4,6 +4,7 @@ import {
   removePost,
   closePost,
   restorePost,
+  updatePostContent,
 } from "../features/posts/postSlice";
 import BackButton from "../components/BackButton";
 import Spinner from "../components/Spinner";
@@ -19,9 +20,30 @@ function Post() {
     (state) => state.post
   );
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [postContent, setPostContent] = useState(undefined);
+  const [editing, setEditing] = useState(false);
+
+  const editChange =
+    postContent === post.post && editing
+      ? false
+      : postContent !== post.post && editing
+      ? true
+      : undefined;
+
   const dispatch = useDispatch();
   const { postId } = useParams();
   const navigate = useNavigate();
+
+  function handleEdit(e) {
+    const buttonContent = e.target.textContent;
+    if (buttonContent !== "Submit") {
+      setEditing((prev) => !prev);
+    } else {
+      dispatch(updatePostContent({ postId, post: postContent }));
+      setEditing(false);
+      toast.success("Post Updated!");
+    }
+  }
 
   function afterOpenModal() {
     console.log("after open");
@@ -30,6 +52,10 @@ function Post() {
   function closeModal() {
     setIsOpen(false);
   }
+
+  useEffect(() => {
+    setPostContent(post.post);
+  }, [post.post]);
 
   useEffect(() => {
     if (isError) {
@@ -57,7 +83,7 @@ function Post() {
     navigate("/posts");
   };
 
-  if (isLoading) {
+  if (isLoading || postContent === undefined) {
     return <Spinner />;
   }
 
@@ -77,9 +103,13 @@ function Post() {
         </h3>
         <h3>Type: {post.type}</h3>
         <hr />
-        <div className="ticket-desc">
-          <p>{post.post}</p>
-        </div>
+        <textarea
+          rows="3"
+          className={editing ? "ticket-desc edit" : "ticket-desc"}
+          value={postContent}
+          disabled={!editing}
+          onChange={(e) => setPostContent(e.target.value)}
+        />
       </header>
       {post.status !== "closed" ? (
         <button onClick={onPostClose} className="btn btn-block btn-secondary">
@@ -90,6 +120,18 @@ function Post() {
           Restore post
         </button>
       )}
+      <button
+        onClick={handleEdit}
+        className={`btn btn-block btn-update ${
+          editChange === true ? "activeEdit" : ""
+        }`}
+      >
+        {editChange === true
+          ? "Submit"
+          : editChange === false
+          ? "Cancel Editing"
+          : "Update post"}
+      </button>
       <button
         onClick={() => setIsOpen(true)}
         className="btn btn-block btn-danger"
