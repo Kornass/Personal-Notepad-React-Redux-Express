@@ -1,6 +1,5 @@
 import axios from "axios";
-const API_URL =
-  "https://personal-notepad-react-redux-server.vercel.app/api/users";
+const API_URL = "http://localhost:3000/api/users";
 
 const register = async (userData) => {
   const response = await axios.post(API_URL, userData);
