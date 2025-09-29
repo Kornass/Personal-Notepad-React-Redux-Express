@@ -37,4 +37,10 @@ app.use("/api/users", require("./routes/userRoutes"));
 
 app.use(errorHandler);
 
-app.listen(PORT, () => console.log(`Server running on ${PORT}`));
+if (process.env.VERCEL) {
+  // On Vercel: export a handler, DO NOT listen
+  module.exports = (req, res) => app(req, res);
+} else {
+  // Local dev:
+  app.listen(PORT, () => console.log(`Server running on ${PORT}`));
+}
