@@ -8,6 +8,11 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 const cors = require("cors");
 
+app.use((req, _res, next) => {
+  console.log("REQ", req.method, req.url);
+  next();
+});
+
 const corsOptions = {
   origin: ["https://personal-notepad-react-redux.vercel.app"], // exact match
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
